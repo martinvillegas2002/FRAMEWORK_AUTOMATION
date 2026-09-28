@@ -1,6 +1,7 @@
 
 Feature: Acceso a la tienda virtual de pruebas
 
+@test
   Scenario Outline: Validar que la página carga correctamente
     Given el usuario ingresa a la pagina con el usuario "<usuario>"
     And ingresa la contraseña "<contraseña>"
