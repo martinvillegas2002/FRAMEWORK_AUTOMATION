@@ -29,7 +29,7 @@ pipeline {
 
                     // Ejecutamos Gradle inyectando nuestra variable headless
                     // Si tienes el archivo gradlew en tu repo, usamos ./gradlew
-                    sh './gradlew test "-Dcucumber.options=--tags @test" -Dheadless=true'
+                    sh 'gradle test "-Dcucumber.options=--tags @test" -Dheadless=true'
                 }
             }
         }
