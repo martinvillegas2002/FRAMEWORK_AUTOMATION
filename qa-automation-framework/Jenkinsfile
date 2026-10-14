@@ -1,0 +1,51 @@
+pipeline {
+    // Ejecutar en cualquier nodo de Jenkins (en tu caso, tu contenedor Docker)
+    agent any
+
+    // Aquí le decimos qué herramientas usar.
+    // IMPORTANTE: Los nombres en comillas deben ser EXACTAMENTE los nombres que
+    // les pusiste en "Administrar Jenkins -> Tools".
+    tools {
+        // gradle 'Gradle 8.5' // Descomenta y pon el nombre de tu Gradle si no usas el wrapper
+        // jdk 'Java Docker'   // Descomenta y pon el nombre de tu JDK si no usa el de defecto
+    }
+
+    stages {
+        stage('Descargar Código') {
+            steps {
+                echo 'Descargando el código fuente desde GitHub...'
+                // Jenkins descarga el código automáticamente en pipelines SCM,
+                // pero este paso sirve para visualizarlo en Blue Ocean.
+            }
+        }
+
+        stage('Ejecutar Pruebas Automatizadas') {
+            steps {
+                // Como tu proyecto está en una subcarpeta, usamos "dir" para entrar a ella
+                // Asegúrate de que el nombre de la carpeta sea exactamente el tuyo
+                dir('qa-automation-framework') {
+
+                    echo 'Iniciando pruebas con Selenium y Cucumber...'
+
+                    // Ejecutamos Gradle inyectando nuestra variable headless
+                    // Si tienes el archivo gradlew en tu repo, usamos ./gradlew
+                    sh './gradlew test "-Dcucumber.options=--tags @test" -Dheadless=true'
+                }
+            }
+        }
+    }
+
+    // El bloque post se ejecuta siempre al final, pase lo que pase
+    post {
+        success {
+            echo '✅ ¡Las pruebas pasaron exitosamente!'
+        }
+        failure {
+            echo '❌ Algunas pruebas fallaron o el código no compiló.'
+        }
+        always {
+            echo '🧹 Limpiando o publicando reportes...'
+            // Más adelante aquí configuraremos la publicación de tu reporte HTML de Gradle
+        }
+    }
+}
