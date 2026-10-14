@@ -23,7 +23,24 @@ public class LoginSteps {
     public void elUsuarioIngresaAlaPaginaConElUsuario(String usuario) {
         System.out.println("El usuario que ingresó desde Gherkin es: " + usuario);
 
-        driver = new ChromeDriver();
+
+        // Configuramos las opciones para poder correr en Jenkins/Docker
+        org.openqa.selenium.chrome.ChromeOptions options = new org.openqa.selenium.chrome.ChromeOptions();
+        String isHeadless = System.getProperty("headless", "false");
+
+        // Imprimimos en consola para auditar
+        System.out.println(">>> MODO HEADLESS ACTIVO: " + isHeadless);
+
+        if (isHeadless.equals("true")) {
+            options.addArguments("--headless");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+
+            // 👇 ESTA ES LA LÍNEA NUEVA QUE LE DICE A SELENIUM DÓNDE ESTÁ EL NAVEGADOR 👇
+            options.setBinary("/usr/bin/chromium");
+        }
+
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("[http://host.docker.internal:5173/login](http://host.docker.internal:5173/login)");
 
