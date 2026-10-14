@@ -39,12 +39,10 @@ public class LoginSteps {
             options.addArguments("--window-size=1920,1080");
             options.setBinary("/usr/bin/chromium");
 
-            // 👇 ESTA ES LA LÍNEA NUEVA QUE LE DICE A SELENIUM DÓNDE ESTÁ EL NAVEGADOR 👇
-            options.setBinary("/usr/bin/chromium");
         }
 
         driver = new ChromeDriver(options);
-        driver.get("[http://host.docker.internal:5173/login](http://host.docker.internal:5173/login)");
+        driver.get("http://host.docker.internal:5173/login");
 
         loginPO = new LoginPO(driver);
         // Aquí luego agregaremos el código Selenium para escribir ese 'usuario' en la caja de texto
