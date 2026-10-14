@@ -6,9 +6,9 @@ pipeline {
     // IMPORTANTE: Los nombres en comillas deben ser EXACTAMENTE los nombres que
     // les pusiste en "Administrar Jenkins -> Tools".
     tools {
-        // gradle 'Gradle 8.5' // Descomenta y pon el nombre de tu Gradle si no usas el wrapper
-        // jdk 'Java Docker'   // Descomenta y pon el nombre de tu JDK si no usa el de defecto
-    }
+            jdk 'Java11'
+            gradle 'Gradle'
+        }
 
     stages {
         stage('Descargar Código') {
