@@ -25,7 +25,7 @@ public class LoginSteps {
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("http://localhost:5173/login");
+        driver.get("[http://host.docker.internal:5173/login](http://host.docker.internal:5173/login)");
 
         loginPO = new LoginPO(driver);
         // Aquí luego agregaremos el código Selenium para escribir ese 'usuario' en la caja de texto

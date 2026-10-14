@@ -28,6 +28,7 @@ dependencies {
 test {
     useJUnitPlatform()
 
+    systemProperties System.properties
     // Esta configuración extra te ayudará a ver en la consola si las pruebas pasan o fallan
     testLogging {
         events "passed", "skipped", "failed"
